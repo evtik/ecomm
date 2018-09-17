@@ -1,0 +1,47 @@
+%main.container
+  %h1.general-title-margin= t('ecomm.checkout.caption')
+  = render('progress')
+  = form_for(@order, url: checkout_submit_address_path, class: 'res-mb-100') do |f|
+    .hidden-xs.hidden-sm
+      .row
+        .col-md-5
+          %h3.general-subtitle= t('.billing_address')
+          %p.general-info-text= t('.fields_required')
+        .col-md-5.col-md-offset-1.shipping-hideable{class: |
+          ('hidden' if @order.use_billing)} |
+          %h3.general-subtitle= t('.shipping_address')
+    .row
+      .col-md-5.mb-40
+        .visible-xs.visible-sm
+          %h3.general-subtitle= t('.billing_address')
+          %p.general-info-text= t('.fields_required')
+        = render('address_fields', f: f, address: @order.billing,
+          type: 'billing', entity: 'order')
+      .col-md-5.col-md-offset-1.mb-60
+        .shipping-hideable{class: ('hidden' if @order.use_billing)}
+          .visible-xs.visible-sm
+            %h3.general-subtitle= t('.shipping_address')
+          = render('address_fields', f: f, address: @order.shipping,
+            type: 'shipping', entity: 'order')
+        .form-group.checkbox
+          %label.font-weight-light.pl-0
+            = f.check_box(:use_billing, class: 'input checkbox-input',
+              hidden: 'true')
+            %span.checkbox-icon
+              %i.fa.fa-check
+            %span.checkbox-text= t('.use_billing')
+    .general-text-align.mb-60
+      %p.in-gold-500.font-18= t('ecomm.carts.show.order_summary')
+      %table.general-summary-table
+        %tr
+          %td
+            %p.font-16= t('.item_total')
+          %td
+            %p.font-16= number_to_currency(@order.items_total)
+        %tr
+          %td
+            %p.font-16= t('ecomm.carts.show.order_total')
+          %td
+            %p.font-16= number_to_currency(@order.subtotal)
+      = f.submit(t('ecomm.checkout.save_continue'),
+        class: 'btn btn-default center-block mb-20')

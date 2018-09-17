@@ -1,0 +1,21 @@
+%main.container.general-main-wrap
+  %h1.general-title-margin= t('ecomm.checkout.caption')
+  = render('progress')
+  = form_for(@order, url: checkout_submit_delivery_path, class: 'res-mb-100') do |f|
+    %h3.general-subtitle= t('ecomm.checkout.delivery.shipping_method')
+    .visible-xs
+      = render('xs_deliveries_radio')
+    .hidden-xs.mb-res-50
+      = render('deliveries_radio')
+    .general-text-align
+      %p.in-gold-500.font-18= t('ecomm.carts.show.order_summary')
+      %table.general-summary-table
+        = render('delivery_totals')
+    = fields_for(:shipment, @order.shipment) do |fields|
+      = fields.hidden_field(:price, value: @order.shipment.price)
+      = fields.hidden_field(:days_min, value: @order.shipment.days_min)
+      = fields.hidden_field(:days_max, value: @order.shipment.days_max)
+      = fields.hidden_field(:shipping_method,
+                            value: @order.shipment.shipping_method)
+    = f.submit(t('ecomm.checkout.save_continue'),
+      class: 'btn btn-default center-block mb-20')

@@ -1,0 +1,32 @@
+%main.container.mb-res-50
+  %h1.general-title-margin= t('ecomm.checkout.caption')
+  = render('progress')
+  %h3.general-subtitle= t('.credit_card')
+  = form_for(@order, url: checkout_submit_payment_path,
+    class: 'max-600 mb-80') do |f|
+    .row
+      .col-sm-6
+        = f.simple_fields_for(:card, @order.card) do |fields|
+          = fields.input(:number, label: t('.card_number'),
+            input_html: { data: { mask: '9999-9999-9999-9999', placeholder: 'X' } },
+            placeholder: t('.card_number'))
+          .row
+            .col-sm-6
+              = fields.input(:cardholder, label: t('.cardholder'),
+                placeholder: t('.cardholder'))
+            .col-sm-3
+              = fields.input(:month_year, label: t('.month_year'),
+                placeholder: t('.month_year'))
+            .col-sm-3
+              = fields.input(:cvv, label: t('.cvv'), as: :password,
+                wrapper_html: { class: 'relative' }, hint: '',
+                hint_html: { title: t('.cvv_hint'),
+                             data: { toggle: 'tooltip', placement: 'top' } },
+                placeholder: t('.cvv'))
+      .col-xs-12
+        .general-text-align
+          %p.in-gold-500.font-18= t('ecomm.carts.show.order_summary')
+          %table.general-summary-table
+            = render('delivery_totals')
+        = f.submit(t('ecomm.checkout.save_continue'),
+          class: 'btn btn-default center-block mb-20')

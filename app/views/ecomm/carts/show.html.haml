@@ -1,0 +1,46 @@
+%main.container.general-main-wrap
+  %h1.general-title-margin= t('.caption')
+  - if @line_items.empty?
+    .container.text-center.mt-50
+      %h2= t('.cart_empty_html', href: link_to(t('.catalog_caption'),
+        Ecomm.catalog_path))
+  - else
+    = form_tag(cart_path, method: :put) do
+      .visible-xs
+        = render('xs_cart_items', render_inputs: true)
+      .hidden-xs
+        = render('cart_items', render_inputs: true)
+      .general-order-wrap
+        .row
+          .col-sm-4
+            .input-group.general-input-group
+              %label.font-weight-light= t('.enter_coupon')
+              %input.form-control.mb-30{type: 'text', name: 'coupon', |
+                placeholder: t('.enter_coupon')} |
+              %div
+                = submit_tag(t('.update_cart'),
+                  class: 'btn btn-primary mb-15 res-block')
+          .col-sm-8
+            .res-mr-200.text-center.general-text-right
+              %p.in-gold-500.font-18= t('.order_summary')
+              %table.general-summary-table.general-summary-table-right.general-text-right
+                %tr
+                  %td
+                    %p.font-16= t('.subtotal')
+                  %td
+                    %p#items-total.font-16{'data-discount': session[:discount]}= |
+                      number_to_currency(@items_total) |
+                %tr
+                  %td
+                    %p.font-16= t('.coupon')
+                  %td
+                    %p#discount.font-16= number_to_currency(@discount)
+                %tr
+                  %td
+                    %strong.font-18= t('.order_total')
+                  %td
+                    %strong#order-subtotal.font-18= |
+                      number_to_currency(@order_subtotal) |
+        .text-center
+          = submit_tag(t('.checkout'), class: 'btn btn-default mb-20',
+            name: :to_checkout)

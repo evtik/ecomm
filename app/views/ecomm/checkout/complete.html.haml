@@ -1,0 +1,28 @@
+%main.container.general-main-wrap
+  %h1.general-title-margin= t('ecomm.checkout.caption')
+  = render('progress')
+  .text-center.mb-40
+    %h3.general-subtitle= t('.thanks')
+    %p.font-weight-light #{t('.email_sent')} #{current_customer.email}
+  .row.mb-20
+    .col-sm-6
+      .visible-xs
+        %p.general-order-number.mb-0 #{t('.order')} ##{@order.number}
+        %p.general-address.mb-30= l(@order.created_at, format: :long_date)
+      = render('address_summary', address: @order.addresses.first,
+        render_edit_link: false)
+    .col-sm-6.hidden-xs.text-right
+      %p.general-order-number.mb-0 #{t('.order')} ##{@order.number}
+      %p.general-address.mb-30= l(@order.created_at, format: :long_date)
+  .visible-xs
+    .general-cart-item.divider-lg
+      = render('/ecomm/carts/xs_cart_items', render_inputs: false)
+  .hidden-xs.divider-lg.pt-20
+    = render('/ecomm/carts/cart_items', render_inputs: false)
+  .text-center.general-text-right
+    %p.in-gold-500.font-18= t('ecomm.carts.show.order_summary')
+    %table.general-summary-table.general-summary-table-right.general-text-right
+      = render('delivery_totals')
+  .text-center
+    = link_to(t('.back_to_store'), Ecomm.catalog_path,
+      class: 'btn btn-default mb-20')

@@ -1,3 +1,5 @@
+require 'rack_session_access'
+
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
 
@@ -17,6 +19,8 @@ Rails.application.configure do
   config.public_file_server.headers = {
     'Cache-Control' => "public, max-age=#{1.hour.seconds.to_i}"
   }
+
+  config.action_mailer.default_url_options = { host: 'localhost:3000' }
 
   # Show full error reports and disable caching.
   config.consider_all_requests_local       = true
@@ -39,4 +43,6 @@ Rails.application.configure do
 
   # Raises error for missing translations
   # config.action_view.raise_on_missing_translations = true
+
+  config.middleware.use RackSessionAccess::Middleware
 end

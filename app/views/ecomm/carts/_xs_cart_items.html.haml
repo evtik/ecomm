@@ -1,0 +1,48 @@
+- @line_items.each do |line_item|
+  - if render_inputs
+    = link_to(cart_item_path(line_item.product_id),
+      data: { confirm: t('ecomm.carts.show.are_you_sure') },
+      class: 'close general-cart-close', method: :delete) do
+      %span{'aria-hidden': 'true'} &times;
+  .general-img-wrap-table
+    = image_tag(line_item.product.main_image, alt: line_item.product.title,
+      class: 'cart-image-shadow')
+  %p.general-title= line_item.product.title
+  - unless render_inputs
+    %p.text-justify.in-grey-600.font-weight-light= |
+      truncate(line_item.product.description, length: 150) |
+  %table.table
+    %tr
+      %td
+        %span.in-grey-600= t('ecomm.carts.price')
+      %td
+        %span.font-16.in-gold-500= number_to_currency(line_item.product.price)
+    %tr
+      %td.vertical-middle
+        %span.in-grey-600= t('ecomm.carts.quantity')
+      %td
+        - if render_inputs
+          .input-group
+            %a.input-link.quantity-decrement{href: '#',
+              'data-target': "xs-quantities-#{line_item.product_id}"}
+              %i.fa.fa-minus.line-height-40
+            %input.form-control.quantity-input{type: 'number', min: '1',
+              name: "quantities[#{line_item.product_id}]",
+              class: "quantities-#{line_item.product_id}",
+              id: "xs-quantities-#{line_item.product_id}",
+              'data-bound-input': "quantities-#{line_item.product_id}",
+              'data-bound-subtotal': "subtotal-#{line_item.product_id}",
+              'data-price': line_item.product.price,
+              value: line_item.quantity}
+            %a.input-link.quantity-increment{href: '#',
+              'data-target': "xs-quantities-#{line_item.product_id}"}
+              %i.fa.fa-plus.line-height-40
+        - else
+          %span= line_item.quantity
+    %tr
+      %td
+        %span.in-grey-600= t('ecomm.carts.subtotal')
+      %td
+        %span.font-16.in-gold-500{class: "subtotal-#{line_item.product_id}"}= |
+          number_to_currency(line_item.product.price * line_item.quantity) |
+  .general-cart-item.divider-lg-bottom.mb-30

@@ -1,0 +1,14 @@
+= f.simple_fields_for(type, address) do |fields|
+  = fields.input(:id, as: :hidden)
+  = fields.input(:address_type, as: :hidden)
+  - %i(first_name last_name street_address city zip).each do |property|
+    = fields.input(property, label: t("ecomm.checkout.address.#{property}"),
+      placeholder: t("ecomm.checkout.address.#{property}"))
+  = fields.input(:country, label: t('ecomm.checkout.address.country'),
+    collection: presenter.populate_countries_for(type),
+    input_html: { class: 'country-select', name: "#{entity}[#{type}][country]",
+                  'data-target': "#{type}-phone" },
+    prompt: t('ecomm.checkout.address.select_country'))
+  = fields.input(:phone, label: t('ecomm.checkout.address.phone'),
+    input_html: { id: "#{type}-phone" },
+    placeholder: t('ecomm.checkout.address.phone_example'))

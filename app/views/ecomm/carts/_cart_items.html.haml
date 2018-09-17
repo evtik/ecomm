@@ -1,0 +1,54 @@
+%table.table.table-hover
+  %tr.no-hover
+    %th.col-pic.pl-0
+      %span.in-grey-600.ml-20= t('ecomm.carts.product')
+    %th.col-title
+    %th.col-price
+      %span.in-grey-600= t('ecomm.carts.price')
+    %th.col-quantity
+      %span.in-grey-600= t('ecomm.carts.quantity')
+    %th.col-total
+      %span.in-grey-600= t('ecomm.carts.subtotal')
+    - if render_inputs
+      %th.col-close
+  - @line_items.each do |line_item|
+    %tr
+      %td
+        .general-img-wrap-table
+          = image_tag(line_item.product.main_image,
+            alt: line_item.product.title, class: 'cart-img-shadow pull-left')
+      %td
+        %p.general-title= line_item.product.title
+        - unless render_inputs
+          %p.text-justify.in-grey-600.font-weight-light= |
+            truncate(line_item.product.description, length: 150) |
+      %td
+        %span.font-16.in-gold-500= number_to_currency(line_item.product.price)
+      %td
+        - if render_inputs
+          .input-group
+            %a.input-link.quantity-decrement{href: '#',
+              'data-target': "quantities-#{line_item.product_id}"}
+              %i.fa.fa-minus.line-height-40
+            %input.form-control.quantity-input{type: 'number', min: '1',
+              name: "quantities[#{line_item.product_id}]",
+              class: "quantities-#{line_item.product_id}",
+              id: "quantities-#{line_item.product_id}",
+              'data-bound-input': "xs-quantities-#{line_item.product_id}",
+              'data-bound-subtotal': "subtotal-#{line_item.product_id}",
+              'data-price': line_item.product.price,
+              value: line_item.quantity}
+            %a.input-link.quantity-increment{href: '#',
+              'data-target': "quantities-#{line_item.product_id}"}
+              %i.fa.fa-plus.line-height-40
+        - else
+          %span.ml-30= line_item.quantity
+      %td
+        %span.font-16.in-gold-500{class: "subtotal-#{line_item.product_id}"}= |
+          number_to_currency(line_item.product.price * line_item.quantity) |
+      - if render_inputs
+        %td
+          = link_to(cart_item_path(line_item.product_id),
+            data: { confirm: t('ecomm.carts.show.are_you_sure') },
+            class: 'close general-cart-close', method: :delete) do
+            %span{'aria-hidden': 'true'} &times;

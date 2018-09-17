@@ -1,6 +1,6 @@
 module Ecomm
-  class ApplicationMailer < ActionMailer::Base
-    default from: 'from@example.com'
-    layout 'mailer'
+  class ApplicationMailer < ::ApplicationMailer
+    include Ecomm::ApplicationHelper
+    add_template_helper(Ecomm::ApplicationHelper)
   end
 end

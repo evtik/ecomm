@@ -1,0 +1,5 @@
+%h1= t('.title', number: @order.number)
+= render('ecomm/carts/cart_items', render_inputs: false)
+= render('ecomm/checkout/delivery_totals')
+%br
+= t('.body_html', href: link_to(t('.here'), completed_order_url(@order)))

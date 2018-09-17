@@ -1,0 +1,13 @@
+%p.general-address
+  = "#{address.first_name} #{address.last_name}"
+  - if render_edit_link
+    %span.general-edit
+      = link_to(t('ecomm.checkout.edit'), checkout_address_path)
+  %br
+  = address.street_address
+  %br
+  = "#{address.city} #{address.zip}"
+  %br
+  = address.country
+  %br
+  = "#{t('ecomm.checkout.address.phone')} #{address.phone}"

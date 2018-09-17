@@ -1,0 +1,29 @@
+- @shipments.each do |shipment|
+  %table.table
+    %tr
+      %td.col-half
+        %span.in-grey-600= t('ecomm.checkout.delivery.method')
+      %td.col-half
+        .form-group.radio.mt-0.mb-0
+          %label.font-16.font-weight-light.pl-0
+            = radio_button_tag(:shipment_id, shipment.id,
+              false,
+              class: 'radio-input', hidden: true,
+              id: "xs-shipment-#{shipment.id}", 'data-price': shipment.price,
+                'data-days-min': shipment.days_min,
+                'data-days-max': shipment.days_max,
+                'data-shipping-method': shipment.shipping_method)
+            %span.radio-icon
+            %span.radio-text= shipment.shipping_method
+    %tr
+      %td
+        %span.in-grey-600= t('ecomm.checkout.delivery.days')
+      %td
+        %span.font-16.font-weight-light |
+          #{shipment.days_min} to #{shipment.days_max} days |
+    %tr
+      %td
+        %span.in-grey-600= t('ecomm.checkout.delivery.price')
+      %td
+        %span.font-16.in-gold-500= number_to_currency(shipment.price)
+  .general-cart-item.divider-lg-bottom.mb-30

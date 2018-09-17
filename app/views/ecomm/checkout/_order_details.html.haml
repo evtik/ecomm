@@ -1,0 +1,36 @@
+.row.mb-20
+  .col-sm-3
+    %h3.general-subtitle= t('ecomm.checkout.address.shipping_address')
+    = render('ecomm/checkout/address_summary', address: @shipping,
+      render_edit_link: render_links)
+  .col-sm-3
+    %h3.general-subtitle= t('ecomm.checkout.address.billing_address')
+    = render('ecomm/checkout/address_summary', address: @billing,
+      render_edit_link: render_links)
+  .col-sm-3
+    %h3.general-subtitle= t('ecomm.checkout.shipments')
+    %p.general-address
+      = @order.shipment.shipping_method
+      -if render_links
+        %span.general-edit
+          = link_to(t('ecomm.checkout.edit'), ecomm.checkout_delivery_path)
+      %br
+      from #{@order.shipment.days_min} to #{@order.shipment.days_max} days
+  .col-sm-3
+    %h3.general-subtitle= t('ecomm.checkout.payment_info')
+    %p.general-address
+      = presenter.starred_number(@order.credit_card)
+      - if render_links
+        %span.general-edit
+          = link_to(t('ecomm.checkout.edit'), ecomm.checkout_payment_path)
+      %br
+      = presenter.month_full_year(@order.credit_card)
+.general-cart-item.divider-lg.visible-xs
+.visible-xs
+  = render('/ecomm/carts/xs_cart_items', render_inputs: false)
+.hidden-xs.divider-lg.pt-20
+  = render('/ecomm/carts/cart_items', render_inputs: false)
+.text-center.general-text-right
+  %p.in-gold-500.font-18= t('ecomm.carts.show.order_summary')
+  %table.general-summary-table.general-summary-table-right.general-text-right
+    = render('ecomm/checkout/delivery_totals')

@@ -1,0 +1,135 @@
+en:
+  activemodel:
+    errors:
+      models:
+        address:
+          attributes:
+            first_name:
+              blank: 'Please enter your first name'
+            last_name:
+              blank: 'Please enter your last name'
+            street_address:
+              blank: 'Please enter your street address'
+            city:
+              blank: 'Please enter your city'
+            zip:
+              blank: 'Please enter zip'
+            country:
+              blank: 'Please choose a country'
+            phone:
+              blank: 'Please enter phone number in format +123456789101112'
+              invalid: 'Please enter a valid phone'
+
+        credit_card:
+          attributes:
+            number:
+              blank: 'Please enter a valid credit card number'
+              invalid: 'Should consist of 16 digits exactly'
+              luhn_invalid: 'Invalid card number'
+            cardholder:
+              blank: "Please enter the cardholder's name"
+              invalid: 'Invalid name format'
+            month_year:
+              blank: "Please enter the card's expiry date"
+              invalid: 'Invalid expiry date format'
+              past_date: 'Should be this month or later'
+            cvv:
+              blank: "Please enter the card's cvv"
+              invalid: 'Invalid cvv format'
+
+  ecomm:
+    carts:
+      product: 'Product'
+      price: 'Price'
+      quantity: 'Quantity'
+      subtotal: 'SubTotal'
+      show:
+        caption: 'Cart'
+        catalog_caption: 'Catalog'
+        cart_empty_html: 'Currently you do not have any items in your cart. You could visit the %{href} to add some.'
+        are_you_sure: 'Are you sure?'
+        enter_coupon: 'Enter Your Coupon Code'
+        update_cart: 'Update cart'
+        order_summary: 'Order Summary'
+        subtotal: 'Subtotal:'
+        coupon: 'Coupon:'
+        order_total: 'Order Total:'
+        checkout: 'Checkout'
+
+    coupon:
+      taken: 'This coupon is already used!'
+      expired: 'This coupon has expired!'
+      non_existent: 'This coupon does not exist!'
+
+    checkout:
+      caption: 'Checkout'
+      steps:
+        address: 'Address'
+        delivery: 'Delivery'
+        payment: 'Payment'
+        confirm: 'Confirm'
+        complete: 'Complete'
+      order_subtotal: 'Order Subtotal:'
+      shipping: 'Shipping:'
+      edit: 'edit'
+      shipments: 'Shipments'
+      payment_info: 'Payment Information'
+      save_continue: 'Save and continue'
+      address:
+        billing: 'billing'
+        billing_address: 'Billing Address'
+        shipping: 'shipping'
+        shipping_address: 'Shipping Address'
+        fields_required: 'all fields required'
+        use_billing: 'Use Billing Address'
+        item_total: 'Item total:'
+        first_name: 'First name'
+        last_name: 'Last name'
+        street_address: 'Street address'
+        city: 'City'
+        zip: 'Zip'
+        country: 'Country'
+        select_country: 'Select a country'
+        phone: 'Phone'
+        phone_example: 'Example +123456789101112'
+      delivery:
+        shipping_method: 'Shipping method'
+        method: 'Method'
+        days: 'Days'
+        price: 'Price'
+      payment:
+        credit_card: 'Credit Card'
+        card_number: 'Card Number'
+        cardholder: 'Name on Card'
+        month_year: 'MM / YY'
+        cvv: 'CVV'
+        cvv_hint: |
+         3-digit security code usually found on the back of your
+         card. American Express cards have a 4-digit code located on
+         the front.
+      confirm:
+        place_order: 'Place order'
+      submit_confirm:
+        order_placement_error: |
+          The order has not been placed! Please, try again later.
+      complete:
+        thanks: 'Thank You for your Order!'
+        email_sent: 'An order confirmation has been sent to'
+        order: 'Order'
+        back_to_store: 'Back to Store'
+
+    order_mailer:
+      order_email:
+        subject: "Order %{number} has been successfully placed!"
+        title: "Order %{number} has been added for processing"
+        body_html: "You can view your order processing progress %{href}"
+        here: 'here'
+
+  number:
+    currency:
+      format:
+        unit: '€'
+
+  time:
+    formats:
+      long_date: "%B %d, %Y"
